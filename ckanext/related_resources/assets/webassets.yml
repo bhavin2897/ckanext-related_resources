@@ -1,0 +1,14 @@
+# related_resources-js:
+#   filter: rjsmin
+#   output: ckanext-related_resources/%(version)s-related_resources.js
+#   contents:
+#     - js/related_resources.js
+#   extra:
+#     preload:
+#       - base/main
+
+# related_resources-css:
+#   filter: cssrewrite
+#   output: ckanext-related_resources/%(version)s-related_resources.css
+#   contents:
+#     - css/related_resources.css
