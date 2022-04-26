@@ -21,8 +21,8 @@ def upgrade():
                     sa.Column('id', sa.Integer, primary_key=True, nullable=False),
                     sa.Column('package_id', sa.UnicodeText(), sa.ForeignKey('package.id'), nullable=False),
                     sa.Column('relation_id', sa.UnicodeText()),
-                    sa.Column('relationType', sa.UnicodeText()),
-                    sa.Column('relationIdType', sa.UnicodeText())
+                    sa.Column('relation_type', sa.UnicodeText()),
+                    sa.Column('relation_type', sa.UnicodeText())
                     )
 
 def downgrade():
