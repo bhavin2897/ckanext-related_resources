@@ -34,26 +34,26 @@ if you are using different table names & column names, please name them using "l
 
 To install ckanext-related_resources:
 
-1. Activate your CKAN virtual environment, for example:
+Activate your CKAN virtual environment, for example:
 
      . /usr/lib/ckan/default/bin/activate
 
-2. Clone the source and install it on the virtualenv
+Clone the source and install it on the virtualenv
 
     git clone https://github.com/bhavin2897/ckanext-related_resources.git
     cd ckanext-related_resources
     pip install -e .
 	pip install -r requirements.txt
 
-3. Add `related_resources` to the `ckan.plugins` setting in your CKAN
+Add `related_resources` to the `ckan.plugins` setting in your CKAN
    config file (by default the config file is located at
    `/etc/ckan/default/ckan.ini`).
 
-4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu:
+Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu:
 
      sudo service apache2 reload
 
-5. To upgrade ckan database, for the tables you have created:
+To upgrade ckan database, for the tables you have created:
 
      ckan -c /etc/ckan/default/ckan.ini db upgrade -p related_resources
 	
