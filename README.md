@@ -54,7 +54,8 @@ To install ckanext-related_resources:
      sudo service apache2 reload
 
 5. To upgrade ckan database, for the tables you have created:
-	ckan -c /etc/ckan/default/ckan.ini db upgrade -p related_resources
+
+     ckan -c /etc/ckan/default/ckan.ini db upgrade -p related_resources
 	
 You will get a message  `Upgrading DB: SUCCESS`. 
 
@@ -81,7 +82,8 @@ Restart Server if you are using Supervisor and Nginx
     
 
 To upgrade ckan database, for the tables you have created:
-	ckan -c /etc/ckan/default/ckan.ini db upgrade -p related_resources
+
+    ckan -c /etc/ckan/default/ckan.ini db upgrade -p related_resources
 	
 You will get a message  `Upgrading DB: SUCCESS`. 
 
