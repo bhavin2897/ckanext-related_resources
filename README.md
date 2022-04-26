@@ -24,8 +24,7 @@ Compatibility with core CKAN versions:
 
 
 
-NOTE: While you are migrated directly via cloning this repo, you might experience server side errors. 
-It is recommended to create your own migration tables, and copy migration files as above. 
+NOTE: If you are creating your own migration tables then,
 Please follow official documentation preciesly. (https://docs.ckan.org/en/2.9/extensions/best-practices.html)
 
 You can copy migration python file and version control files, after creating migration is done. 
@@ -54,7 +53,12 @@ To install ckanext-related_resources:
 
      sudo service apache2 reload
 
+5. To upgrade ckan database, for the tables you have created:
+	ckan -c /etc/ckan/default/ckan.ini db upgrade -p related_resources
+	
+You will get a message  `Upgrading DB: SUCCESS`. 
 
+Later, check the database list of tables for the ckan user to see the table for the migrated/generated table.  
 ## Config settings
 
 None at present
