@@ -1,39 +1,37 @@
 [![Tests](https://github.com/bhavin/ckanext-related_resources/workflows/Tests/badge.svg?branch=main)](https://github.com/bhavin/ckanext-related_resources/actions)
 
 # ckanext-related_resources
+While harvesting Metdata from different Chemistry Repositories, Each dataset has a relation between their corresponding datasets.(ontology mapping)  
+This is used by DataCite Schema to provide hierarical relation between the samples. 
+For Example:
+In [Chemtion Repository](https://www.chemotion-repository.net) they relationship between sample -> Reaction is provided in metadata field "hasPart". 
 
-**TODO:** Put a description of your extension here:  What does it do? What features does it have? Consider including some screenshots or embedding a video!
+To provide these corrresponding smaple links to the HOME repository, we use this plugin in CKAN, to display hyperlink of the dataset. 
 
 
 ## Requirements
 
-**TODO:** For example, you might want to mention here which versions of CKAN this
-extension works with.
+Database Migration is done, to establibsh new tables within the CKAN PostgreSQL database. 
+For more information please check offical documenation: https://docs.ckan.org/en/2.9/extensions/best-practices.html
 
-If your extension works across different versions you can add the following table:
 
 Compatibility with core CKAN versions:
 
 | CKAN version    | Compatible?   |
 | --------------- | ------------- |
-| 2.6 and earlier | not tested    |
-| 2.7             | not tested    |
-| 2.8             | not tested    |
-| 2.9             | not tested    |
+| 2.8 & eariler             | not tested    |
+| 2.9             | yes   |
 
-Suggested values:
 
-* "yes"
-* "not tested" - I can't think of a reason why it wouldn't work
-* "not yet" - there is an intention to get it working
-* "no"
 
+NOTE: While you are migrated directly via cloning this repo, you might experience server side errors. 
+It is recommended to create your own migration tables, and copy migration files as above. 
+Please follow official documentation preciesly. (https://docs.ckan.org/en/2.9/extensions/best-practices.html)
+
+You can copy migration python file and version control files, after creating migration is done. 
+if you are using different table names & column names, please name them using "lower_cases" instead of CamelCase. 
 
 ## Installation
-
-**TODO:** Add any additional install steps to the list below.
-   For example installing any non-Python dependencies or adding any required
-   config settings.
 
 To install ckanext-related_resources:
 
@@ -43,7 +41,7 @@ To install ckanext-related_resources:
 
 2. Clone the source and install it on the virtualenv
 
-    git clone https://github.com/bhavin/ckanext-related_resources.git
+    git clone https://github.com/bhavin2897/ckanext-related_resources.git
     cd ckanext-related_resources
     pip install -e .
 	pip install -r requirements.txt
@@ -61,22 +59,21 @@ To install ckanext-related_resources:
 
 None at present
 
-**TODO:** Document any optional config settings here. For example:
-
-	# The minimum number of hours to wait before re-checking a resource
-	# (optional, default: 24).
-	ckanext.related_resources.some_setting = some_default_value
-
 
 ## Developer installation
 
 To install ckanext-related_resources for development, activate your CKAN virtualenv and
 do:
 
-    git clone https://github.com/bhavin/ckanext-related_resources.git
+    git clone https://github.com/bhavin2897/ckanext-related_resources.git
     cd ckanext-related_resources
     python setup.py develop
     pip install -r dev-requirements.txt
+    
+Restart Server if you are using Supervisor and Nginx
+
+    sudo service supervisor reload
+    sudo service nginx reload 
 
 
 ## Tests
