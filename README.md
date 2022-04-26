@@ -78,6 +78,14 @@ Restart Server if you are using Supervisor and Nginx
 
     sudo service supervisor reload
     sudo service nginx reload 
+    
+
+To upgrade ckan database, for the tables you have created:
+	ckan -c /etc/ckan/default/ckan.ini db upgrade -p related_resources
+	
+You will get a message  `Upgrading DB: SUCCESS`. 
+
+Later, check the database list of tables for the ckan user to see the table for the migrated/generated table.  
 
 
 ## Tests
