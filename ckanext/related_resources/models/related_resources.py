@@ -13,8 +13,8 @@ related_resources_table = Table('related_resources', meta.metadata,
                 Column('id', types.UnicodeText, primary_key = True, nullable = False),
                 Column('package_id', types.UnicodeText, ForeignKey('package.id'), nullable = False),
                 Column('relation_id',types.UnicodeText),
-                Column('relationType',types.UnicodeText),
-                Column('relationIdType', types.UnicodeText)
+                Column('relation_type',types.UnicodeText),
+                Column('relation_id_type', types.UnicodeText)
         )
 
 
@@ -23,8 +23,8 @@ class RelatedResources(domain_object.DomainObject):
     def __init__(self, related_object):
         self.package_id = related_object.get('package_id')
         self.relation_id = related_object.get('relation_id')
-        self.relationType = related_object.get('relationType')
-        self.relationIdType = related_object.get('relationIdType')
+        self.relationType = related_object.get('relation_type')
+        self.relationIdType = related_object.get('relation_id_type')
 
 
 
