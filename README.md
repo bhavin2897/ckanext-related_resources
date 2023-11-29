@@ -8,6 +8,15 @@ In [Chemtion Repository](https://www.chemotion-repository.net) they relationship
 
 To provide these corrresponding smaple links to the HOME repository, we use this plugin in CKAN, to display hyperlink of the dataset. 
 
+### Database Models 
+In this Plugin Extension, you will also find database models for interacting by decalring models through SQLAlchemy model
+registration. 
+
+This plugin provides model classmethods for :  
+1. create row entry 
+2. get related values by package ID 
+3. get alternate names by package ID
+****
 
 ## Requirements
 
@@ -59,7 +68,12 @@ To upgrade ckan database, for the tables you have created:
 	
 You will get a message  `Upgrading DB: SUCCESS`. 
 
-Later, check the database list of tables for the ckan user to see the table for the migrated/generated table.  
+Later, check the database list of tables for the ckan user to see the table for the migrated/generated table.
+
+To Use the database Model in external plugins, import it as one module
+   
+``from ckanext.related_resources.models.related_resources import RelatedResources ``
+
 ## Config settings
 
 None at present
