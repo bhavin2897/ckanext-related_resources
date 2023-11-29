@@ -13,9 +13,9 @@ In this Plugin Extension, you will also find database models for interacting by 
 registration. 
 
 This plugin provides model classmethods for :  
-1. create row entry 
-2. get related values by package ID 
-3. get alternate names by package ID
+1. Create Row Entry 
+2. Get Related Values by Package ID (Related Sources and Related as variable)
+3. Get Alternate Names by Package ID
 ****
 
 ## Requirements
