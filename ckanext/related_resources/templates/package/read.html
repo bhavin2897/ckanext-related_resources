@@ -1,3 +1,6 @@
 {% ckan_extends %}
+
+{% block package_notes %}
     {{ super() }}
     {% snippet "snippets/related_resources.html", pkg = pkg_dict %}
+{% endblock %}

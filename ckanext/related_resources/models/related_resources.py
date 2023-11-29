@@ -1,40 +1,100 @@
 # encoding: utf-8
 
-from six import text_type
-from sqlalchemy import orm, types, Column, Table, ForeignKey
-from sqlalchemy.ext.associationproxy import association_proxy
-from sqlalchemy.sql.expression import false
+import datetime
+from sqlalchemy import Column, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy import orm
+
 from ckan.model import meta, Package, domain_object
+from sqlalchemy import types as _types
+from ckan.model import Session
+from ckan.model import meta
+from .base import Base
+
+_all__ = [u'RelatedResources', u'related_resources_table']
 
 
-__all__ = ['RelatedResources', 'related_resources_table']
+class RelatedResources(Base):
+    __tablename__ = 'related_resources'
 
-related_resources_table = Table('related_resources', meta.metadata,
-                Column('id', types.UnicodeText, primary_key = True, nullable = False),
-                Column('package_id', types.UnicodeText, ForeignKey('package.id'), nullable = False),
-                Column('relation_id',types.UnicodeText),
-                Column('relation_type',types.UnicodeText),
-                Column('relation_id_type', types.UnicodeText)
-        )
+    """
+    Related Resources table stores the related resources for each dataset based on their "hasPart" or "isPart" of 
+    ontology metadata.
+    
+    Initially this was created for Chemotion-Repository, but later adopted for relationship extension as well.  
+    """
 
+    id = Column(_types.Integer, primary_key=True, autoincrement=True)
+    package_id = Column(_types.Integer, ForeignKey('package.id'))
+    # package = relationship(Package)
+    relation_id = Column(_types.String)
+    relation_type = Column(_types.String)
+    relation_id_type = Column(_types.String)
+    alternate_name = Column(_types.String)
 
+    @classmethod
+    def create(cls, package_id, relation_id, relation_type, relation_id_type, alternate_name):
+        """
+        Create a new RelatedResource entry and store it in the database.
 
-class RelatedResources(domain_object.DomainObject):
-    def __init__(self, related_object):
-        self.package_id = related_object.get('package_id')
-        self.relation_id = related_object.get('relation_id')
-        self.relationType = related_object.get('relation_type')
-        self.relationIdType = related_object.get('relation_id_type')
+        :param alternate_name: Alternate names / Synonyms from MassBank
+        :param package_id: The ID of the package
+        :param relation_id: The relation ID
+        :param relation_type: The type of relation
+        :param relation_id_type: The ID type of the relation
 
+        :return: The created RelatedResources instance
+        """
 
+        existing_entry = Session.query(cls).filter(cls.package_id == package_id).first()
+        if existing_entry:
+            # Return the existing entry if found
+            return None
+        else:
+            new_related_resource = cls(
+                package_id=package_id,
+                relation_id=relation_id,
+                relation_type=relation_type,
+                relation_id_type=relation_id_type,
+                alternate_name=alternate_name
+            )
+            Session.add(new_related_resource)
+            Session.commit()
 
-meta.mapper(
-    RelatedResources,
-    related_resources_table,
-    properties={
-        u"package": orm.relation(
-            Package, backref=orm.backref(u"related_resources", cascade=u"all, delete, delete-orphan")
-        )
-    },
-)
+        return None
 
+    @classmethod
+    def get_mol_data_by_package_id(cls, package_id):
+        """
+                Retrieve related resources based on the given package ID.
+
+                :param package_id: The ID of the package to search for
+                :param session: The SQLAlchemy session for database interaction
+                :return: A list of RelatedResources instances or IDs associated with the given package ID
+                """
+        return Session.query(cls.molecules_id).filter(cls.package_id == package_id).all()
+
+    @classmethod
+    def get_relation_values_by_package_id(cls, package_id):
+        """
+
+        :param package_id:
+        :return:
+        """
+        relation_values = Session.query(
+            cls.relation_id,
+            cls.relation_type).filter(cls.package_id == package_id).all()
+
+        return relation_values
+
+    @classmethod
+    def get_alternate_names_by_package_id(cls, package_id):
+        """
+
+        :param package_id: Given Package ID
+        :return: Alternate names for the given package ID
+        """
+        alternate_names = Session.query(
+            cls.alternate_name).filter(cls.package_id == package_id).all()
+
+        return alternate_names
