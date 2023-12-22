@@ -25,7 +25,7 @@ class RelatedResources(Base):
     """
 
     id = Column(_types.Integer, primary_key=True, autoincrement=True)
-    package_id = Column(_types.Integer, ForeignKey('package.id'))
+    package_id = Column(_types.Integer, ForeignKey(Package.id), nullable=False)
     # package = relationship(Package)
     relation_id = Column(_types.String)
     relation_type = Column(_types.String)
@@ -98,3 +98,5 @@ class RelatedResources(Base):
             cls.alternate_name).filter(cls.package_id == package_id).all()
 
         return alternate_names
+
+package = relationship(Package, secondary= RelatedResources, back_populates="related_resources", cascade="all, delete")
