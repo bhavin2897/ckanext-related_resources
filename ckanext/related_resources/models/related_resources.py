@@ -48,21 +48,7 @@ class RelatedResources(Base):
 
         existing_entry = Session.query(cls).filter(cls.package_id == package_id, cls.relation_id == relation_id).first()
         if existing_entry:
-            # Delete the existing entry
-            Session.delete(existing_entry)
-            Session.commit()
-
-            # Create a new entry
-            new_related_resource = cls(
-                package_id=package_id,
-                relation_id=relation_id,
-                relation_type=relation_type,
-                relation_id_type=relation_id_type,
-                alternate_name=alternate_name
-                )
-            Session.add(new_related_resource)
-            Session.commit()
-
+            # Return None if the entry/row already exists
             return None
 
         else:
