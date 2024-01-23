@@ -25,11 +25,11 @@ class RelatedResources(Base):
     """
 
     id = Column(_types.Integer, primary_key=True, autoincrement=True)
-    package_id = Column(_types.Integer, ForeignKey(Package.id), nullable=False)
+    package_id = Column(_types.String, ForeignKey(Package.id), nullable=False)
     # package = relationship(Package)
-    relation_id = Column(_types.String)
-    relation_type = Column(_types.String)
-    relation_id_type = Column(_types.String)
+    relation_id = Column(_types.JSON)
+    relation_type = Column(_types.JSON)
+    relation_id_type = Column(_types.JSON)
     alternate_name = Column(_types.String)
 
     @classmethod
@@ -99,4 +99,5 @@ class RelatedResources(Base):
 
         return alternate_names
 
-package = relationship(Package, secondary= RelatedResources, back_populates="related_resources", cascade="all, delete")
+
+package = relationship(Package, secondary=RelatedResources, back_populates="related_resources", cascade="all, delete")
