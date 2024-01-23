@@ -46,7 +46,7 @@ class RelatedResources(Base):
         :return: The created RelatedResources instance
         """
 
-        existing_entry = Session.query(cls).filter(cls.package_id == package_id).first()
+        existing_entry = Session.query(cls).filter(cls.package_id == package_id, cls.relation_id == relation_id).first()
         if existing_entry:
             # Delete the existing entry
             Session.delete(existing_entry)
