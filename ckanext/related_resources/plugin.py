@@ -1,6 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-from ckanext.related_resources.controllers.related_link import RelatedController
+#from ckanext.related_resources.controllers.related_link import RelatedController
 from flask import Blueprint
 
 
