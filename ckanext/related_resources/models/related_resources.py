@@ -27,9 +27,9 @@ class RelatedResources(Base):
     id = Column(_types.Integer, primary_key=True, autoincrement=True)
     package_id = Column(_types.String, ForeignKey(Package.id), nullable=False)
     # package = relationship(Package)
-    relation_id = Column(_types.JSON)
-    relation_type = Column(_types.JSON)
-    relation_id_type = Column(_types.JSON)
+    relation_id = Column(_types.String)
+    relation_type = Column(_types.String)
+    relation_id_type = Column(_types.String)
     alternate_name = Column(_types.String)
 
     @classmethod
@@ -54,9 +54,9 @@ class RelatedResources(Base):
         else:
             new_related_resource = cls(
                 package_id=package_id,
-                relation_id=relation_id,
-                relation_type=relation_type,
-                relation_id_type=relation_id_type,
+                relation_id=relation_id.strip(),
+                relation_type=relation_type.strip(),
+                relation_id_type=relation_id_type.strip(),
                 alternate_name=alternate_name
             )
             Session.add(new_related_resource)
